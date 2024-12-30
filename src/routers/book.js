@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const BookController = require("../controllers/book");
+const controller = new BookController();
+router.post("/book", controller.post);
+router.get("/book", controller.getAll);
+router.get("/book/:id", controller.get);
+router.put("/book/:id", controller.put);
+router.delete("/book/:id", controller.delete);
+module.exports = router;
