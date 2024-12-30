@@ -4,12 +4,15 @@ class ServiceUser {
   get(id) {
     return repository.get(id);
   }
-  put(id) {
-    return repository.put(id);
+  getAll() {
+    return repository.getAll();
+  }
+  put(id, userName, cpf, email, phoneNumber, birthDate) {
+    return repository.put(id, userName, cpf, email, phoneNumber, birthDate);
   }
 
-  post(id) {
-    return repository.post(id);
+  post(userName, cpf, email, phoneNumber, birthDate) {
+    return repository.post(userName, cpf, email, phoneNumber, birthDate);
   }
 
   delete(id) {

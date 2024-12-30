@@ -13,7 +13,7 @@ class User {
   // Método para criar um novo usuário
   static async create({ nome, cpf, email, telefone, dataNascimento }) {
     const query = `
-      INSERT INTO Usuario (Nome, CPF, Email, Telefone, Data_Nascimento)
+      INSERT INTO usuario (Nome, CPF, Email, Telefone, Data_Nascimento)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
@@ -37,7 +37,7 @@ class User {
 
   // Método para buscar um usuário pelo ID
   static async findById(id) {
-    const query = `SELECT * FROM Usuario WHERE ID = $1;`;
+    const query = `SELECT * FROM usuario WHERE ID = $1;`;
     try {
       const result = await client.query(query, [id]);
       if (result.rows.length > 0) {
@@ -57,11 +57,35 @@ class User {
       throw error;
     }
   }
+  static async getAll() {
+    const query = `SELECT * FROM usuario;`;
+    try {
+      const result = await client.query(query);
+      if (result.rows.length > 0) {
+        // Mapeia todas as linhas e cria uma instância de User para cada uma
+        return result.rows.map(
+          (row) =>
+            new User(
+              row.id,
+              row.nome,
+              row.cpf,
+              row.email,
+              row.telefone,
+              row.data_nascimento
+            )
+        );
+      }
+      return []; // Retorna um array vazio caso não haja usuários
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      throw error;
+    }
+  }
 
   // Método para atualizar os dados de um usuário
-  static async update(id, { nome, cpf, email, telefone, dataNascimento }) {
+  static async update(id, nome, cpf, email, telefone, dataNascimento) {
     const query = `
-      UPDATE Usuario
+      UPDATE usuario
       SET Nome = $1, CPF = $2, Email = $3, Telefone = $4, Data_Nascimento = $5
       WHERE ID = $6
       RETURNING *;
@@ -89,7 +113,7 @@ class User {
 
   // Método para deletar um usuário pelo ID
   static async delete(id) {
-    const query = `DELETE FROM Usuario WHERE ID = $1 RETURNING *;`;
+    const query = `DELETE FROM usuario WHERE ID = $1 RETURNING *;`;
     try {
       const result = await client.query(query, [id]);
       return result.rows.length > 0;
