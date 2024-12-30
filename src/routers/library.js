@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const LibraryController = require("../controllers/library");
+const controller = new LibraryController();
+router.post("/library", controller.post);
+router.get("/library", controller.getAll);
+router.get("/library/:id", controller.get);
+router.put("/library/:id", controller.put);
+router.delete("/library/:id", controller.delete);
+module.exports = router;
