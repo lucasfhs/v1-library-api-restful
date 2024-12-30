@@ -6,7 +6,10 @@ const client = new Client({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT || 5432, // Adiciona a porta, se não estiver no .env, o padrão é 5432
+  port: process.env.DB_PORT || 5432,
+  ssl: {
+    rejectUnauthorized: false, // Aceita certificados não verificados (útil em ambientes de desenvolvimento)
+  },
 });
 
 async function runConnection() {
