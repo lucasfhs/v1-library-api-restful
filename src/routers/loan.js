@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const LoanController = require("../controllers/loan");
+const controller = new LoanController();
+router.post("/loan", controller.post);
+router.get("/loan", controller.getAll);
+router.get("/loan/:id", controller.get);
+router.put("/loan/:id", controller.put);
+router.delete("/loan/:id", controller.delete);
+module.exports = router;
