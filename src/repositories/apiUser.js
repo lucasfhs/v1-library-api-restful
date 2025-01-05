@@ -18,7 +18,6 @@ class RepositoryApiUser {
       throw error;
     }
   }
-
   async get(email) {
     try {
       const userData = await User.findByEmail(email);

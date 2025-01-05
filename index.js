@@ -5,12 +5,13 @@ const libraryRouter = require("./src/routers/library");
 const bookLibraryRouter = require("./src/routers/bookLibrary");
 const loanRouter = require("./src/routers/loan");
 const apiUserRouter = require("./src/routers/ApiUser");
+const authMiddleware = require("./src/middleware/auth");
 const app = new express();
 const PORT = 3000;
 app.use(express.json());
 app.use(apiUserRouter);
 // Before auth middleware
-
+app.use(authMiddleware);
 app.use(userRouter);
 app.use(bookRouter);
 app.use(libraryRouter);
