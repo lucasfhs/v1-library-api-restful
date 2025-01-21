@@ -3,21 +3,21 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const repository = new RepositoryApiUser();
 class ServiceApiUser {
-  get(email) {
-    return repository.get(email);
+  get(userLogin) {
+    return repository.get(userLogin);
   }
 
-  post(email, password) {
-    return repository.post(email, password);
+  post(userLogin, password) {
+    return repository.post(userLogin, password);
   }
 
-  delete(email) {
-    return repository.delete(email);
+  delete(userLogin) {
+    return repository.delete(userLogin);
   }
 
-  login(email, password) {
+  login(userLogin, password) {
     return jwt.sign(
-      { email: email, password: password },
+      { userLogin: userLogin, password: password },
       process.env.SECRET_KEY,
       {
         expiresIn: 60 * 60 * 24 * 7,

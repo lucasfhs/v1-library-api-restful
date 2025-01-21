@@ -1,14 +1,14 @@
 const User = require("../models/apiUser");
 
 class RepositoryApiUser {
-  async post(email, password) {
+  async post(userLogin, password) {
     try {
-      if (!email) {
-        throw new Error("Email cannot be null.");
+      if (!userLogin) {
+        throw new Error("UserLogin cannot be null.");
       } else if (!password) {
         throw new Error("Password cannot be null.");
       }
-      const newUser = await User.create(email, password);
+      const newUser = await User.create(userLogin, password);
       if (!newUser) {
         throw new Error("User could not be created.");
       }
@@ -18,9 +18,9 @@ class RepositoryApiUser {
       throw error;
     }
   }
-  async get(email) {
+  async get(userLogin) {
     try {
-      const userData = await User.findByEmail(email);
+      const userData = await User.findByUserLogin(userLogin);
       if (!userData) {
         throw new Error("User does not exist.");
       }
@@ -31,9 +31,9 @@ class RepositoryApiUser {
     }
   }
 
-  async delete(email) {
+  async delete(userLogin) {
     try {
-      const deletedUser = await User.delete(email);
+      const deletedUser = await User.delete(userLogin);
       if (!deletedUser) {
         throw new Error("User does not exist.");
       }

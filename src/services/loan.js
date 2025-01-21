@@ -7,12 +7,12 @@ class ServiceLoan {
   getAll() {
     return repository.getAll();
   }
-  put(id, idUser, idBook, dateLoan, dateReturn, idLibrary) {
-    return repository.put(id, idUser, idBook, dateLoan, dateReturn, idLibrary);
+  put(id, cpfUser, idBook, dateLoan, dateReturn, idLibrary) {
+    return repository.put(id, cpfUser, idBook, dateLoan, dateReturn, idLibrary);
   }
 
-  post(idUser, idBook, dateLoan, dateReturn, idLibrary) {
-    return repository.post(idUser, idBook, dateLoan, dateReturn, idLibrary);
+  post(cpfUser, idBook, dateLoan, dateReturn, idLibrary) {
+    return repository.post(cpfUser, idBook, dateLoan, dateReturn, idLibrary);
   }
 
   delete(id) {

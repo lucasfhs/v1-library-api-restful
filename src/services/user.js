@@ -7,12 +7,27 @@ class ServiceUser {
   getAll() {
     return repository.getAll();
   }
-  put(id, userName, cpf, email, phoneNumber, birthDate) {
-    return repository.put(id, userName, cpf, email, phoneNumber, birthDate);
+  put(id, userName, cpf, email, phoneNumber, birthDate, password) {
+    return repository.put(
+      id,
+      userName,
+      cpf,
+      email,
+      phoneNumber,
+      birthDate,
+      password
+    );
   }
 
   post(userName, cpf, email, phoneNumber, birthDate) {
-    return repository.post(userName, cpf, email, phoneNumber, birthDate);
+    return repository.post(
+      userName,
+      cpf,
+      email,
+      phoneNumber,
+      birthDate,
+      password
+    );
   }
 
   delete(id) {

@@ -21,14 +21,16 @@ class ControllerUser {
   async put(req, res) {
     try {
       const id = req.params.id;
-      const { userName, cpf, email, phoneNumber, birthDate } = req.body;
+      const { userName, cpf, email, phoneNumber, birthDate, password } =
+        req.body;
       const result = await service.put(
         id,
         userName,
         cpf,
         email,
         phoneNumber,
-        birthDate
+        birthDate,
+        password
       );
       res.status(200).json({ message: "User updated successfully.", result });
     } catch (error) {
@@ -37,13 +39,15 @@ class ControllerUser {
   }
   async post(req, res) {
     try {
-      const { userName, cpf, email, phoneNumber, birthDate } = req.body;
+      const { userName, cpf, email, phoneNumber, birthDate, password } =
+        req.body;
       const result = await service.post(
         userName,
         cpf,
         email,
         phoneNumber,
-        birthDate
+        birthDate,
+        password
       );
       res
         .status(201)

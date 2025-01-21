@@ -1,22 +1,23 @@
 const client = require("../config/database");
 
 class User {
-  constructor(id, nome, cpf, email, telefone, dataNascimento) {
+  constructor(id, nome, cpf, email, telefone, dataNascimento, senha) {
     this.id = id;
     this.nome = nome;
     this.cpf = cpf;
     this.email = email;
     this.telefone = telefone;
     this.dataNascimento = dataNascimento;
+    this.senha = senha;
   }
 
-  static async create({ nome, cpf, email, telefone, dataNascimento }) {
+  static async create({ nome, cpf, email, telefone, dataNascimento, senha }) {
     const query = `
-      INSERT INTO usuario (Nome, CPF, Email, Telefone, Data_Nascimento)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO usuario (Nome, CPF, Email, Telefone, Data_Nascimento, Senha)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `;
-    const values = [nome, cpf, email, telefone, dataNascimento];
+    const values = [nome, cpf, email, telefone, dataNascimento, senha];
     try {
       const result = await client.query(query, values);
       const row = result.rows[0];
@@ -26,7 +27,8 @@ class User {
         row.cpf,
         row.email,
         row.telefone,
-        row.data_nascimento
+        row.data_nascimento,
+        row.senha
       );
     } catch (error) {
       console.error("Error creating user:", error);
@@ -46,7 +48,8 @@ class User {
           row.cpf,
           row.email,
           row.telefone,
-          row.data_nascimento
+          row.data_nascimento,
+          row.senha
         );
       }
       return null;
@@ -55,6 +58,7 @@ class User {
       throw error;
     }
   }
+
   static async getAll() {
     const query = `SELECT * FROM usuario;`;
     try {
@@ -68,7 +72,8 @@ class User {
               row.cpf,
               row.email,
               row.telefone,
-              row.data_nascimento
+              row.data_nascimento,
+              row.senha
             )
         );
       }
@@ -79,14 +84,14 @@ class User {
     }
   }
 
-  static async update(id, nome, cpf, email, telefone, dataNascimento) {
+  static async update(id, nome, cpf, email, telefone, dataNascimento, senha) {
     const query = `
       UPDATE usuario
-      SET Nome = $1, CPF = $2, Email = $3, Telefone = $4, Data_Nascimento = $5
-      WHERE ID = $6
+      SET Nome = $1, CPF = $2, Email = $3, Telefone = $4, Data_Nascimento = $5, Senha = $6
+      WHERE ID = $7
       RETURNING *;
     `;
-    const values = [nome, cpf, email, telefone, dataNascimento, id];
+    const values = [nome, cpf, email, telefone, dataNascimento, senha, id];
     try {
       const result = await client.query(query, values);
       if (result.rows.length > 0) {
@@ -97,7 +102,8 @@ class User {
           row.cpf,
           row.email,
           row.telefone,
-          row.data_nascimento
+          row.data_nascimento,
+          row.senha
         );
       }
       return null;

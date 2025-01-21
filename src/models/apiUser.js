@@ -1,85 +1,87 @@
 const client = require("../config/database");
 
 class ApiUser {
-  constructor(email, password) {
-    this.email = email;
-    this.password = password;
+  constructor(usuarioLogin, senha) {
+    this.usuarioLogin = usuarioLogin;
+    this.senha = senha;
   }
 
-  static async create(email, password) {
+  static async create(usuarioLogin, senha) {
     const query = `
-      INSERT INTO api_user (email, password)
+      INSERT INTO Operador (Usuario_Login, Senha)
       VALUES ($1, $2)
       RETURNING *;
     `;
-    const values = [email, password];
+    const values = [usuarioLogin, senha];
     try {
       const result = await client.query(query, values);
       const row = result.rows[0];
-      return new ApiUser(row.email, row.password);
+      return new ApiUser(row.usuario_login, row.senha);
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error("Error creating operator:", error);
       throw error;
     }
   }
 
-  static async findByEmail(email) {
-    const query = `SELECT * FROM api_user WHERE email = $1;`;
+  static async findByUserLogin(usuarioLogin) {
+    const query = `SELECT * FROM Operador WHERE Usuario_Login = $1;`;
     try {
-      const result = await client.query(query, [email]);
+      const result = await client.query(query, [usuarioLogin]);
       if (result.rows.length > 0) {
         const row = result.rows[0];
-        return new ApiUser(row.email, row.password);
+        return new ApiUser(row.usuario_login, row.senha);
       }
       return null;
     } catch (error) {
-      console.error("Error finding user by email:", error);
+      console.error("Error finding operator by login:", error);
       throw error;
     }
   }
 
   static async getAll() {
-    const query = `SELECT * FROM api_user;`;
+    const query = `SELECT * FROM Operador;`;
     try {
       const result = await client.query(query);
       if (result.rows.length > 0) {
-        return result.rows.map((row) => new ApiUser(row.email, row.password));
+        return result.rows.map(
+          (row) => new ApiUser(row.usuario_login, row.senha)
+        );
       }
       return [];
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.error("Error fetching operators:", error);
       throw error;
     }
   }
 
-  static async update(email, newPassword) {
+  static async update(usuarioLogin, newSenha) {
     const query = `
-      UPDATE api_user
-      SET password = $1
-      WHERE email = $2
+      UPDATE Operador
+      SET Senha = $1
+      WHERE Usuario_Login = $2
       RETURNING *;
     `;
-    const values = [newPassword, email];
+    const values = [newSenha, usuarioLogin];
     try {
       const result = await client.query(query, values);
       if (result.rows.length > 0) {
         const row = result.rows[0];
-        return new ApiUser(row.email, row.password);
+        return new ApiUser(row.usuario_login, row.senha);
       }
       return null;
     } catch (error) {
-      console.error("Error updating user password:", error);
+      console.error("Error updating operator password:", error);
       throw error;
     }
   }
 
-  static async delete(email) {
-    const query = `DELETE FROM api_user WHERE email = $1 RETURNING *;`;
+  static async delete(usuarioLogin) {
+    const query = `DELETE FROM ApiUser WHERE Usuario_Login = $1 RETURNING *;`;
     try {
-      const result = await client.query(query, [email]);
+      const result = await client.query(query, [usuarioLogin]);
       return result.rows.length > 0;
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error deleting operator:", error);
       throw error;
     }
   }

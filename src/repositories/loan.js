@@ -1,9 +1,9 @@
 const Loan = require("../models/loan");
 class RepositoryLoan {
-  async post(idUser, idBook, dateLoan, dateReturn, idLibrary) {
+  async post(cpfUser, idBook, dateLoan, dateReturn, idLibrary) {
     try {
-      if (!idUser) {
-        throw new Error("idUser cannot be null.");
+      if (!cpfUser) {
+        throw new Error("cpfUser cannot be null.");
       } else if (!idBook) {
         throw new Error("idBook cannot be null.");
       } else if (!dateLoan) {
@@ -44,10 +44,10 @@ class RepositoryLoan {
       throw error;
     }
   }
-  async put(id, idUser, idBook, dateLoan, dateReturn, idLibrary) {
+  async put(id, cpfUser, idBook, dateLoan, dateReturn, idLibrary) {
     try {
-      if (!idUser) {
-        throw new Error("idUser cannot be null.");
+      if (!cpfUser) {
+        throw new Error("cpfUser cannot be null.");
       } else if (!idBook) {
         throw new Error("idBook cannot be null.");
       } else if (!dateLoan) {
@@ -59,7 +59,7 @@ class RepositoryLoan {
       }
       const newLoan = await Loan.update(
         id,
-        idUser,
+        cpfUser,
         idBook,
         dateLoan,
         dateReturn,

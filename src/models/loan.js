@@ -3,14 +3,14 @@ const client = require("../config/database");
 class Loan {
   constructor(
     id,
-    idUsuario,
+    cpfUsuario,
     idLivro,
     idBiblioteca,
     dataEmprestimo,
     dataDevolucao
   ) {
     this.id = id;
-    this.idUsuario = idUsuario;
+    this.cpfUsuario = cpfUsuario;
     this.idLivro = idLivro;
     this.idBiblioteca = idBiblioteca;
     this.dataEmprestimo = dataEmprestimo;
@@ -18,19 +18,19 @@ class Loan {
   }
 
   static async create(
-    idUsuario,
+    cpfUsuario,
     idLivro,
     idBiblioteca,
     dataEmprestimo,
     dataDevolucao = null
   ) {
     const query = `
-      INSERT INTO emprestimo (id_usuario, id_livro, id_biblioteca, data_emprestimo, data_devolucao)
+      INSERT INTO emprestimo (cpf_usuario, id_livro, id_biblioteca, data_emprestimo, data_devolucao)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
     const values = [
-      idUsuario,
+      cpfUsuario,
       idLivro,
       idBiblioteca,
       dataEmprestimo,
@@ -41,7 +41,7 @@ class Loan {
       const row = result.rows[0];
       return new Loan(
         row.id,
-        row.id_usuario,
+        row.cpf_usuario,
         row.id_livro,
         row.id_biblioteca,
         row.data_emprestimo,
@@ -61,7 +61,7 @@ class Loan {
         const row = result.rows[0];
         return new Loan(
           row.id,
-          row.id_usuario,
+          row.cpf_usuario,
           row.id_livro,
           row.id_biblioteca,
           row.data_emprestimo,
@@ -84,7 +84,7 @@ class Loan {
           (row) =>
             new Loan(
               row.id,
-              row.id_usuario,
+              row.cpf_usuario,
               row.id_livro,
               row.id_biblioteca,
               row.data_emprestimo,
@@ -113,7 +113,7 @@ class Loan {
         const row = result.rows[0];
         return new Loan(
           row.id,
-          row.id_usuario,
+          row.cpf_usuario,
           row.id_livro,
           row.id_biblioteca,
           row.data_emprestimo,

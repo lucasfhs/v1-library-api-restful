@@ -1,6 +1,6 @@
 const User = require("../models/user");
 class RepositoryUser {
-  async post(userName, cpf, email, phoneNumber, birthDate) {
+  async post(userName, cpf, email, phoneNumber, birthDate, password) {
     try {
       if (!userName) {
         throw new Error("User name cannot be null.");
@@ -12,6 +12,8 @@ class RepositoryUser {
         throw new Error("Phone Number cannot be null.");
       } else if (!birthDate) {
         throw new Error("Birth date cannot be null.");
+      } else if (!password) {
+        throw new Error("Password cannot be null.");
       }
       const newUser = await User.create({
         nome: userName,
@@ -19,6 +21,7 @@ class RepositoryUser {
         email,
         telefone: phoneNumber,
         dataNascimento: birthDate,
+        senha: password,
       });
       if (!newUser) {
         throw new Error("User could not be created.");
@@ -50,7 +53,7 @@ class RepositoryUser {
       throw error;
     }
   }
-  async put(id, userName, cpf, email, phoneNumber, birthDate) {
+  async put(id, userName, cpf, email, phoneNumber, birthDate, password) {
     try {
       if (!userName) {
         throw new Error("User name cannot be null.");
@@ -62,6 +65,8 @@ class RepositoryUser {
         throw new Error("Phone Number cannot be null.");
       } else if (!birthDate) {
         throw new Error("Birth date cannot be null.");
+      } else if (!password) {
+        throw new Error("Password cannot be null.");
       }
       const newUser = await User.update(
         id,
@@ -69,7 +74,8 @@ class RepositoryUser {
         cpf,
         email,
         phoneNumber,
-        birthDate
+        birthDate,
+        password
       );
       return newUser;
     } catch (error) {

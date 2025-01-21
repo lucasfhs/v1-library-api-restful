@@ -4,8 +4,8 @@ const service = new ServiceApiUser();
 class ControllerApiUser {
   async get(req, res) {
     try {
-      const email = req.params.email;
-      const user = await service.get(email);
+      const userLogin = req.params.userLogin;
+      const user = await service.get(userLogin);
       if (user) {
         res.status(200).json(user);
       } else {
@@ -19,14 +19,14 @@ class ControllerApiUser {
   }
   async login(req, res) {
     try {
-      const { email, password } = req.body;
-      const currentUser = await service.get(email);
+      const { userLogin, password } = req.body;
+      const currentUser = await service.get(userLogin);
       if (!currentUser) {
         throw new Error("User or password invalid.");
       } else if (password !== currentUser.password) {
         return new Error("User or password invalid.");
       }
-      const result = await service.login(email, password);
+      const result = service.login(userLogin, password);
       res.status(201).json({
         message: "User auth created successfully.",
         result,
@@ -37,8 +37,8 @@ class ControllerApiUser {
   }
   async post(req, res) {
     try {
-      const { email, password } = req.body;
-      const result = await service.post(email, password);
+      const { userLogin, password } = req.body;
+      const result = await service.post(userLogin, password);
       res.status(201).json({
         message: "User created successfully.",
         result,
@@ -50,8 +50,8 @@ class ControllerApiUser {
 
   async delete(req, res) {
     try {
-      const email = req.params.email;
-      const result = await service.delete(email);
+      const userLogin = req.params.userLogin;
+      const result = await service.delete(userLogin);
       if (result) {
         res.status(200).json({
           message: "User deleted successfully.",

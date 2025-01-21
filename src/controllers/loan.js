@@ -21,10 +21,10 @@ class ControllerLoan {
   async put(req, res) {
     try {
       const id = req.params.id;
-      const { idUser, idBook, dateLoan, dateReturn, idLibrary } = req.body;
+      const { cpfUser, idBook, dateLoan, dateReturn, idLibrary } = req.body;
       const result = await service.put(
         id,
-        idUser,
+        cpfUser,
         idBook,
         dateLoan,
         dateReturn,
@@ -37,9 +37,9 @@ class ControllerLoan {
   }
   async post(req, res) {
     try {
-      const { idUser, idBook, dateLoan, dateReturn, idLibrary } = req.body;
+      const { cpfUser, idBook, dateLoan, dateReturn, idLibrary } = req.body;
       const result = await service.post(
-        idUser,
+        cpfUser,
         idBook,
         dateLoan,
         dateReturn,
