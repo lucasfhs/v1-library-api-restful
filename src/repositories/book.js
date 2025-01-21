@@ -1,6 +1,6 @@
 const Book = require("../models/book");
 class RepositoryBook {
-  async post(title, author, category, pages) {
+  async post(title, author, category, pages, language) {
     try {
       if (!title) {
         throw new Error("Title cannot be null.");
@@ -10,12 +10,15 @@ class RepositoryBook {
         throw new Error("Category cannot be null.");
       } else if (!pages) {
         throw new Error("Pages cannot be null.");
+      } else if (!language) {
+        throw new Error("Language cannot be null.");
       }
       const newBook = await Book.create(
         title,
         author,
         category,
         pages,
+        language
       );
       if (!newBook) {
         throw new Error("Book could not be created.");
@@ -47,7 +50,7 @@ class RepositoryBook {
       throw error;
     }
   }
-  async put(id, title, author, category, pages) {
+  async put(id, title, author, category, pages, language) {
     try {
       if (!title) {
         throw new Error("Title cannot be null.");
@@ -57,8 +60,17 @@ class RepositoryBook {
         throw new Error("Category cannot be null.");
       } else if (!pages) {
         throw new Error("Pages cannot be null.");
+      } else if (!language) {
+        throw new Error("Language cannot be null.");
       }
-      const newBook = await Book.update(id, title, author, category, pages);
+      const newBook = await Book.update(
+        id,
+        title,
+        author,
+        category,
+        pages,
+        language
+      );
       return newBook;
     } catch (error) {
       console.error("Error creating Book:", error);

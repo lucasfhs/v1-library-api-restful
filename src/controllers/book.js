@@ -21,8 +21,15 @@ class ControllerBook {
   async put(req, res) {
     try {
       const id = req.params.id;
-      const { title, author, category, pages } = req.body;
-      const result = await service.put(id, title, author, category, pages);
+      const { title, author, category, pages, language } = req.body;
+      const result = await service.put(
+        id,
+        title,
+        author,
+        category,
+        pages,
+        language
+      );
       res.status(200).json({ message: "Book updated successfully.", result });
     } catch (error) {
       res.status(500).json({ message: error.message });
@@ -30,8 +37,14 @@ class ControllerBook {
   }
   async post(req, res) {
     try {
-      const { title, author, category, pages } = req.body;
-      const result = await service.post(title, author, category, pages);
+      const { title, author, category, pages, language } = req.body;
+      const result = await service.post(
+        title,
+        author,
+        category,
+        pages,
+        language
+      );
       res
         .status(201)
         .json({ message: "The book has been created successfully.", result });

@@ -1,21 +1,22 @@
 const client = require("../config/database");
 
 class Book {
-  constructor(id, titulo, autor, categoria, paginas) {
+  constructor(id, titulo, autor, categoria, paginas, idioma) {
     this.id = id;
     this.titulo = titulo;
     this.autor = autor;
     this.categoria = categoria;
     this.paginas = paginas;
+    this.idioma = idioma;
   }
 
-  static async create(titulo, autor, categoria, paginas) {
+  static async create(titulo, autor, categoria, paginas, idioma) {
     const query = `
-      INSERT INTO Livro (Titulo, Autor, Categoria, Paginas)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO Livro (Titulo, Autor, Categoria, Paginas, Idioma)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
-    const values = [titulo, autor, categoria, paginas];
+    const values = [titulo, autor, categoria, paginas, idioma];
     try {
       const result = await client.query(query, values);
       const row = result.rows[0];
@@ -24,7 +25,8 @@ class Book {
         row.titulo,
         row.autor,
         row.categoria,
-        row.paginas
+        row.paginas,
+        row.idioma
       );
     } catch (error) {
       console.error("Error creating book:", error);
@@ -43,7 +45,8 @@ class Book {
           row.titulo,
           row.autor,
           row.categoria,
-          row.paginas
+          row.paginas,
+          row.idioma
         );
       }
       return null;
@@ -60,7 +63,14 @@ class Book {
       if (result.rows.length > 0) {
         return result.rows.map(
           (row) =>
-            new Book(row.id, row.titulo, row.autor, row.categoria, row.paginas)
+            new Book(
+              row.id,
+              row.titulo,
+              row.autor,
+              row.categoria,
+              row.paginas,
+              row.idioma
+            )
         );
       }
       return [];
@@ -70,14 +80,14 @@ class Book {
     }
   }
 
-  static async update(id, titulo, autor, categoria, paginas) {
+  static async update(id, titulo, autor, categoria, paginas, idioma) {
     const query = `
       UPDATE Livro
-      SET Titulo = $1, Autor = $2, Categoria = $3, Paginas = $4
-      WHERE ID = $5
+      SET Titulo = $1, Autor = $2, Categoria = $3, Paginas = $4, Idioma = $5
+      WHERE ID = $6
       RETURNING *;
     `;
-    const values = [titulo, autor, categoria, paginas, id];
+    const values = [titulo, autor, categoria, paginas, idioma, id];
     try {
       const result = await client.query(query, values);
       if (result.rows.length > 0) {
@@ -87,7 +97,8 @@ class Book {
           row.titulo,
           row.autor,
           row.categoria,
-          row.paginas
+          row.paginas,
+          row.idioma
         );
       }
       return null;
