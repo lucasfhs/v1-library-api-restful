@@ -20,14 +20,8 @@ class ControllerApiUser {
   async login(req, res) {
     try {
       const { userLogin, password } = req.body;
-      const currentUser = await service.get(userLogin);
-      if (!currentUser) {
-        throw new Error("User or password invalid.");
-      } else if (password !== currentUser.password) {
-        return new Error("User or password invalid.");
-      }
-      const result = service.login(userLogin, password);
-      res.status(201).json({
+      const result = await service.login(userLogin, password);
+      res.status(200).json({
         message: "User auth created successfully.",
         result,
       });
@@ -41,6 +35,19 @@ class ControllerApiUser {
       const result = await service.post(userLogin, password);
       res.status(201).json({
         message: "User created successfully.",
+        result,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+  async update(req, res) {
+    try {
+      const { password } = req.body;
+      const userLogin = req.params.userLogin;
+      const result = await service.update(userLogin, password);
+      res.status(200).json({
+        message: "User updated successfully.",
         result,
       });
     } catch (error) {

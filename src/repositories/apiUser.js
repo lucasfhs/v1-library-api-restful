@@ -1,6 +1,23 @@
 const User = require("../models/apiUser");
 
 class RepositoryApiUser {
+  async update(userLogin, password) {
+    try {
+      if (!userLogin) {
+        throw new Error("UserLogin cannot be null.");
+      } else if (!password) {
+        throw new Error("Password cannot be null.");
+      }
+      const newUser = await User.update(userLogin, password);
+      if (!newUser) {
+        throw new Error("User could not be created.");
+      }
+      return newUser;
+    } catch (error) {
+      console.error("Error creating User:", error);
+      throw error;
+    }
+  }
   async post(userLogin, password) {
     try {
       if (!userLogin) {

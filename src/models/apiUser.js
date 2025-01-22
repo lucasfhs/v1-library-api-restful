@@ -76,7 +76,7 @@ class ApiUser {
   }
 
   static async delete(usuarioLogin) {
-    const query = `DELETE FROM ApiUser WHERE Usuario_Login = $1 RETURNING *;`;
+    const query = `DELETE FROM Operador WHERE Usuario_Login = $1 RETURNING *;`;
     try {
       const result = await client.query(query, [usuarioLogin]);
       return result.rows.length > 0;
