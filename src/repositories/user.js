@@ -1,8 +1,8 @@
 const User = require("../models/user");
 class RepositoryUser {
-  async post(userName, cpf, email, phoneNumber, birthDate, password) {
+  async post(cpf, name, email, phoneNumber, birthDate, password, address) {
     try {
-      if (!userName) {
+      if (!name) {
         throw new Error("User name cannot be null.");
       } else if (!cpf) {
         throw new Error("Cpf cannot be null.");
@@ -14,15 +14,26 @@ class RepositoryUser {
         throw new Error("Birth date cannot be null.");
       } else if (!password) {
         throw new Error("Password cannot be null.");
+      } else if (
+        !address.street ||
+        !address.neighborhood ||
+        !address.city ||
+        !address.state ||
+        !address.country ||
+        !address.postal_code
+      ) {
+        throw new Error("Address cannot be null.");
       }
-      const newUser = await User.create({
-        nome: userName,
+
+      const newUser = await User.create(
         cpf,
+        name,
         email,
-        telefone: phoneNumber,
-        dataNascimento: birthDate,
-        senha: password,
-      });
+        phoneNumber,
+        birthDate,
+        address,
+        password
+      );
       if (!newUser) {
         throw new Error("User could not be created.");
       }
@@ -32,9 +43,9 @@ class RepositoryUser {
       throw error;
     }
   }
-  async get(id) {
+  async get(cpf) {
     try {
-      const userData = await User.findById(id);
+      const userData = await User.findByCPF(cpf);
       if (!userData) {
         throw new Error("User not exists.");
       }
@@ -44,7 +55,7 @@ class RepositoryUser {
       throw error;
     }
   }
-  async getAll(id) {
+  async getAll() {
     try {
       const userData = await User.getAll();
       return userData;
@@ -53,9 +64,10 @@ class RepositoryUser {
       throw error;
     }
   }
-  async put(id, userName, cpf, email, phoneNumber, birthDate, password) {
+  async put(cpf, name, email, phoneNumber, birthDate, password, address) {
     try {
-      if (!userName) {
+      console.log(cpf, name, email, phoneNumber, birthDate, address, password);
+      if (!name) {
         throw new Error("User name cannot be null.");
       } else if (!cpf) {
         throw new Error("Cpf cannot be null.");
@@ -67,14 +79,24 @@ class RepositoryUser {
         throw new Error("Birth date cannot be null.");
       } else if (!password) {
         throw new Error("Password cannot be null.");
+      } else if (
+        !address.street ||
+        !address.neighborhood ||
+        !address.city ||
+        !address.state ||
+        !address.country ||
+        !address.postal_code
+      ) {
+        throw new Error("Address cannot be null.");
       }
+
       const newUser = await User.update(
-        id,
-        userName,
         cpf,
+        name,
         email,
         phoneNumber,
         birthDate,
+        address,
         password
       );
       return newUser;
@@ -83,9 +105,9 @@ class RepositoryUser {
       throw error;
     }
   }
-  async delete(id) {
+  async delete(cpf) {
     try {
-      const userData = await User.delete(id);
+      const userData = await User.delete(cpf);
       if (!userData) {
         throw new Error("User not exists.");
       }

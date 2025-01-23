@@ -1,37 +1,39 @@
 const RepositoryUser = require("../repositories/user");
 const repository = new RepositoryUser();
 class ServiceUser {
-  get(id) {
-    return repository.get(id);
+  get(cpf) {
+    return repository.get(cpf);
   }
   getAll() {
     return repository.getAll();
   }
-  put(id, userName, cpf, email, phoneNumber, birthDate, password) {
+
+  put(cpf, name, email, phoneNumber, birthDate, password, address) {
     return repository.put(
-      id,
-      userName,
       cpf,
+      name,
       email,
       phoneNumber,
       birthDate,
-      password
+      password,
+      address
     );
   }
 
-  post(userName, cpf, email, phoneNumber, birthDate) {
+  post(cpf, name, email, phoneNumber, birthDate, password, address) {
     return repository.post(
-      userName,
       cpf,
+      name,
       email,
       phoneNumber,
       birthDate,
-      password
+      password,
+      address
     );
   }
 
-  delete(id) {
-    return repository.delete(id);
+  delete(cpf) {
+    return repository.delete(cpf);
   }
 }
 module.exports = ServiceUser;

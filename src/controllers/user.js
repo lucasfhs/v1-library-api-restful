@@ -3,8 +3,8 @@ const service = new ServiceUser();
 class ControllerUser {
   async get(req, res) {
     try {
-      const id = req.params.id;
-      const user = await service.get(id);
+      const cpf = req.params.cpf;
+      const user = await service.get(cpf);
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json({ message: "User not exists." });
@@ -20,17 +20,18 @@ class ControllerUser {
   }
   async put(req, res) {
     try {
-      const id = req.params.id;
-      const { userName, cpf, email, phoneNumber, birthDate, password } =
+      const cpf = req.params.cpf;
+      const { name, email, phoneNumber, birthDate, password, address } =
         req.body;
+
       const result = await service.put(
-        id,
-        userName,
         cpf,
+        name,
         email,
         phoneNumber,
         birthDate,
-        password
+        password,
+        address
       );
       res.status(200).json({ message: "User updated successfully.", result });
     } catch (error) {
@@ -39,15 +40,18 @@ class ControllerUser {
   }
   async post(req, res) {
     try {
-      const { userName, cpf, email, phoneNumber, birthDate, password } =
+      const { cpf, name, email, phoneNumber, birthDate, password, address } =
         req.body;
+      console.log(address);
+
       const result = await service.post(
-        userName,
         cpf,
+        name,
         email,
         phoneNumber,
         birthDate,
-        password
+        password,
+        address
       );
       res
         .status(201)
@@ -58,9 +62,9 @@ class ControllerUser {
   }
   async delete(req, res) {
     try {
-      const id = req.params.id;
-      const result = await service.delete(id);
-      res.status(200).json({ message: "User updated successfully.", result });
+      const cpf = req.params.cpf;
+      const result = await service.delete(cpf);
+      res.status(200).json({ message: "User deleted successfully.", result });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
