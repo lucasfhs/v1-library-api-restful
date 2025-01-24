@@ -13,7 +13,14 @@ class RepositoryLoan {
       } else if (!idLibrary) {
         throw new Error("idLibrary number cannot be null.");
       }
-      const newLoan = await Loan.create(name, address, phoneNumber);
+
+      const newLoan = await Loan.create(
+        cpfUser,
+        idBook,
+        idLibrary,
+        dateLoan,
+        dateReturn
+      );
       if (!newLoan) {
         throw new Error("Loan could not be created.");
       }
@@ -61,9 +68,9 @@ class RepositoryLoan {
         id,
         cpfUser,
         idBook,
+        idLibrary,
         dateLoan,
-        dateReturn,
-        idLibrary
+        dateReturn
       );
       return newLoan;
     } catch (error) {

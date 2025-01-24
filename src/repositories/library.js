@@ -1,10 +1,18 @@
 const Library = require("../models/library");
 class RepositoryLibrary {
   async post(name, address, phoneNumber) {
+    console.log(name, address, phoneNumber);
     try {
       if (!name) {
         throw new Error("Name cannot be null.");
-      } else if (!address) {
+      } else if (
+        !address.street ||
+        !address.neighborhood ||
+        !address.city ||
+        !address.state ||
+        !address.country ||
+        !address.postal_code
+      ) {
         throw new Error("Address cannot be null.");
       } else if (!phoneNumber) {
         throw new Error("Phone number cannot be null.");
@@ -44,7 +52,14 @@ class RepositoryLibrary {
     try {
       if (!name) {
         throw new Error("Name cannot be null.");
-      } else if (!address) {
+      } else if (
+        !address.street ||
+        !address.neighborhood ||
+        !address.city ||
+        !address.state ||
+        !address.country ||
+        !address.postal_code
+      ) {
         throw new Error("Address cannot be null.");
       } else if (!phoneNumber) {
         throw new Error("Phone number cannot be null.");

@@ -24,18 +24,32 @@ class Loan {
     dataEmprestimo,
     dataDevolucao = null
   ) {
+    // Converter datas para o formato ISO 8601
+    const dataEmprestimoISO = new Date(
+      dataEmprestimo.split("/").reverse().join("-")
+    )
+      .toISOString()
+      .split("T")[0];
+    const dataDevolucaoISO = dataDevolucao
+      ? new Date(dataDevolucao.split("/").reverse().join("-"))
+          .toISOString()
+          .split("T")[0]
+      : null;
+
     const query = `
       INSERT INTO emprestimo (cpf_usuario, id_livro, id_biblioteca, data_emprestimo, data_devolucao)
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
+
     const values = [
       cpfUsuario,
       idLivro,
       idBiblioteca,
-      dataEmprestimo,
-      dataDevolucao,
+      dataEmprestimoISO, // Garantido no formato YYYY-MM-DD
+      dataDevolucaoISO, // Garantido no formato YYYY-MM-DD ou null
     ];
+
     try {
       const result = await client.query(query, values);
       const row = result.rows[0];
@@ -48,7 +62,7 @@ class Loan {
         row.data_devolucao
       );
     } catch (error) {
-      console.error("Error creating loan:", error);
+      console.error("Error creating loan:", error.message);
       throw error;
     }
   }
@@ -99,14 +113,42 @@ class Loan {
     }
   }
 
-  static async update(id, dataDevolucao) {
+  static async update(
+    id,
+    cpfUsuario,
+    idLivro,
+    idBiblioteca,
+    dataEmprestimo,
+    dataDevolucao = null
+  ) {
+    // Converter datas para o formato ISO 8601
+    const dataEmprestimoISO = new Date(
+      dataEmprestimo.split("/").reverse().join("-")
+    )
+      .toISOString()
+      .split("T")[0];
+    const dataDevolucaoISO = dataDevolucao
+      ? new Date(dataDevolucao.split("/").reverse().join("-"))
+          .toISOString()
+          .split("T")[0]
+      : null;
+
     const query = `
       UPDATE emprestimo
-      SET data_devolucao = $1
-      WHERE id = $2
+      SET cpf_usuario = $1, id_livro = $2, id_biblioteca = $3, data_emprestimo = $4, data_devolucao = $5
+      WHERE id = $6
       RETURNING *;
     `;
-    const values = [dataDevolucao, id];
+
+    const values = [
+      cpfUsuario,
+      idLivro,
+      idBiblioteca,
+      dataEmprestimoISO, // Garantido no formato YYYY-MM-DD
+      dataDevolucaoISO, // Garantido no formato YYYY-MM-DD ou null
+      id,
+    ];
+
     try {
       const result = await client.query(query, values);
       if (result.rows.length > 0) {
@@ -122,7 +164,7 @@ class Loan {
       }
       return null;
     } catch (error) {
-      console.error("Error updating loan:", error);
+      console.error("Error updating loan:", error.message);
       throw error;
     }
   }
