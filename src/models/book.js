@@ -5,7 +5,7 @@ class Book {
     this.id = id;
     this.titulo = titulo;
     this.autor = autor;
-    this.categoria = categoria;
+    this.categoria = categoria; // Já será um array do banco
     this.paginas = paginas;
     this.idioma = idioma;
   }
@@ -16,7 +16,8 @@ class Book {
       VALUES ($1, $2, $3, $4, $5)
       RETURNING *;
     `;
-    const values = [titulo, autor, categoria, paginas, idioma];
+    const values = [titulo, autor, `{${categoria.join(",")}}`, paginas, idioma];
+
     try {
       const result = await client.query(query, values);
       const row = result.rows[0];
@@ -24,7 +25,7 @@ class Book {
         row.id,
         row.titulo,
         row.autor,
-        row.categoria,
+        row.categoria, // PostgreSQL já retorna como array
         row.paginas,
         row.idioma
       );
@@ -44,7 +45,7 @@ class Book {
           row.id,
           row.titulo,
           row.autor,
-          row.categoria,
+          row.categoria, // PostgreSQL já retorna array
           row.paginas,
           row.idioma
         );
@@ -67,7 +68,7 @@ class Book {
               row.id,
               row.titulo,
               row.autor,
-              row.categoria,
+              row.categoria, // Já é um array
               row.paginas,
               row.idioma
             )
@@ -87,7 +88,15 @@ class Book {
       WHERE ID = $6
       RETURNING *;
     `;
-    const values = [titulo, autor, categoria, paginas, idioma, id];
+    const values = [
+      titulo,
+      autor,
+      `{${categoria.join(",")}}`,
+      paginas,
+      idioma,
+      id,
+    ];
+
     try {
       const result = await client.query(query, values);
       if (result.rows.length > 0) {
