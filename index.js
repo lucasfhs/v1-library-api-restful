@@ -5,6 +5,7 @@ const libraryRouter = require("./src/routers/library");
 const bookLibraryRouter = require("./src/routers/bookLibrary");
 const loanRouter = require("./src/routers/loan");
 const apiUserRouter = require("./src/routers/ApiUser");
+const reportRouter = require("./src/routers/report");
 const authMiddleware = require("./src/middleware/auth");
 const cors = require("cors"); // Importa corretamente o cors
 
@@ -26,6 +27,7 @@ app.use(bookRouter);
 app.use(libraryRouter);
 app.use(bookLibraryRouter);
 app.use(loanRouter);
+app.use(reportRouter);
 
 // Inicializa o servidor
 app.listen(PORT, () => {
