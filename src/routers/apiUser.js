@@ -5,6 +5,8 @@ const controller = new ApiUserController();
 router.post("/auth", controller.post);
 router.get("/auth/:userLogin", controller.get);
 router.delete("/auth/:userLogin", controller.delete);
-router.post("/auth/login", controller.login);
+router.post("/auth/loginUser", controller.loginUser);
+router.post("/auth/loginAdmin", controller.loginAdmin);
 router.put("/auth/:userLogin", controller.update);
+
 module.exports = router;

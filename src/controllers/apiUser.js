@@ -17,10 +17,22 @@ class ControllerApiUser {
         .json({ message: "Error fetching user.", error: error.message });
     }
   }
-  async login(req, res) {
+  async loginUser(req, res) {
+    try {
+      const { cpfUser, password } = req.body;
+      const result = await service.loginUser(cpfUser, password);
+      res.status(200).json({
+        message: "User auth created successfully.",
+        result,
+      });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+  async loginAdmin(req, res) {
     try {
       const { userLogin, password } = req.body;
-      const result = await service.login(userLogin, password);
+      const result = await service.loginAdmin(userLogin, password);
       res.status(200).json({
         message: "User auth created successfully.",
         result,
