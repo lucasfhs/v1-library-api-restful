@@ -7,12 +7,12 @@ class ServiceBook {
   getAll() {
     return repository.getAll();
   }
-  put(id, title, author, category, pages, language) {
-    return repository.put(id, title, author, category, pages, language);
+  put(id, title, author, category, pages, price, language) {
+    return repository.put(id, title, author, category, pages, price, language);
   }
 
-  post(title, author, category, pages, language) {
-    return repository.post(title, author, category, pages, language);
+  post(title, author, category, pages, price, language) {
+    return repository.post(title, author, category, pages, price, language);
   }
 
   delete(id) {

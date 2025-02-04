@@ -21,13 +21,14 @@ class ControllerBook {
   async put(req, res) {
     try {
       const id = req.params.id;
-      const { title, author, category, pages, language } = req.body;
+      const { title, author, category, pages, price, language } = req.body;
       const result = await service.put(
         id,
         title,
         author,
         category,
         pages,
+        price,
         language
       );
       res.status(200).json({ message: "Book updated successfully.", result });
@@ -37,12 +38,13 @@ class ControllerBook {
   }
   async post(req, res) {
     try {
-      const { title, author, category, pages, language } = req.body;
+      const { title, author, category, pages, price, language } = req.body;
       const result = await service.post(
         title,
         author,
         category,
         pages,
+        price,
         language
       );
       res

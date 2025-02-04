@@ -1,6 +1,6 @@
 const Book = require("../models/book");
 class RepositoryBook {
-  async post(title, author, category, pages, language) {
+  async post(title, author, category, pages, price, language) {
     try {
       if (!title) {
         throw new Error("Title cannot be null.");
@@ -10,6 +10,8 @@ class RepositoryBook {
         throw new Error("Category cannot be null.");
       } else if (!pages) {
         throw new Error("Pages cannot be null.");
+      } else if (!price) {
+        throw new Error("Price cannot be null.");
       } else if (!language) {
         throw new Error("Language cannot be null.");
       }
@@ -18,6 +20,7 @@ class RepositoryBook {
         author,
         category,
         pages,
+        price,
         language
       );
       if (!newBook) {
@@ -41,7 +44,7 @@ class RepositoryBook {
       throw error;
     }
   }
-  async getAll(id) {
+  async getAll() {
     try {
       const BookData = await Book.getAll();
       return BookData;
@@ -50,7 +53,7 @@ class RepositoryBook {
       throw error;
     }
   }
-  async put(id, title, author, category, pages, language) {
+  async put(id, title, author, category, pages, price, language) {
     try {
       if (!title) {
         throw new Error("Title cannot be null.");
@@ -60,6 +63,8 @@ class RepositoryBook {
         throw new Error("Category cannot be null.");
       } else if (!pages) {
         throw new Error("Pages cannot be null.");
+      } else if (!price) {
+        throw new Error("Price cannot be null.");
       } else if (!language) {
         throw new Error("Language cannot be null.");
       }
@@ -69,6 +74,7 @@ class RepositoryBook {
         author,
         category,
         pages,
+        price,
         language
       );
       return newBook;

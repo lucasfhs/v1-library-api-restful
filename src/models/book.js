@@ -1,22 +1,30 @@
 const client = require("../config/database");
 
 class Book {
-  constructor(id, titulo, autor, categoria, paginas, idioma) {
+  constructor(id, titulo, autor, categoria, paginas, preco, idioma) {
     this.id = id;
     this.titulo = titulo;
     this.autor = autor;
     this.categoria = categoria; // Já será um array do banco
     this.paginas = paginas;
+    this.preco = preco;
     this.idioma = idioma;
   }
 
-  static async create(titulo, autor, categoria, paginas, idioma) {
+  static async create(titulo, autor, categoria, paginas, preco, idioma) {
     const query = `
-      INSERT INTO Livro (Titulo, Autor, Categoria, Paginas, Idioma)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO Livro (Titulo, Autor, Categoria, Paginas, Preco, Idioma)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;
     `;
-    const values = [titulo, autor, `{${categoria.join(",")}}`, paginas, idioma];
+    const values = [
+      titulo,
+      autor,
+      `{${categoria.join(",")}}`,
+      paginas,
+      preco,
+      idioma,
+    ];
 
     try {
       const result = await client.query(query, values);
@@ -27,6 +35,7 @@ class Book {
         row.autor,
         row.categoria, // PostgreSQL já retorna como array
         row.paginas,
+        row.preco,
         row.idioma
       );
     } catch (error) {
@@ -47,6 +56,7 @@ class Book {
           row.autor,
           row.categoria, // PostgreSQL já retorna array
           row.paginas,
+          row.preco,
           row.idioma
         );
       }
@@ -70,6 +80,7 @@ class Book {
               row.autor,
               row.categoria, // Já é um array
               row.paginas,
+              row.preco,
               row.idioma
             )
         );
@@ -81,11 +92,11 @@ class Book {
     }
   }
 
-  static async update(id, titulo, autor, categoria, paginas, idioma) {
+  static async update(id, titulo, autor, categoria, paginas, preco, idioma) {
     const query = `
       UPDATE Livro
-      SET Titulo = $1, Autor = $2, Categoria = $3, Paginas = $4, Idioma = $5
-      WHERE ID = $6
+      SET Titulo = $1, Autor = $2, Categoria = $3, Paginas = $4, Preco = $5, Idioma = $6
+      WHERE ID = $7
       RETURNING *;
     `;
     const values = [
@@ -93,6 +104,7 @@ class Book {
       autor,
       `{${categoria.join(",")}}`,
       paginas,
+      preco,
       idioma,
       id,
     ];
@@ -107,6 +119,7 @@ class Book {
           row.autor,
           row.categoria,
           row.paginas,
+          row.preco,
           row.idioma
         );
       }
