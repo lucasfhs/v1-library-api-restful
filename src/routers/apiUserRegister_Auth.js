@@ -2,9 +2,8 @@ const express = require("express");
 const router = express.Router();
 const ApiUserController = require("../controllers/apiUser");
 const controller = new ApiUserController();
-
-router.get("/auth/:userLogin", controller.get);
-router.delete("/auth/:userLogin", controller.delete);
-router.put("/auth/:userLogin", controller.update);
+router.post("/auth", controller.post);
+router.post("/auth/loginUser", controller.loginUser);
+router.post("/auth/loginAdmin", controller.loginAdmin);
 
 module.exports = router;

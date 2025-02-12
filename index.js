@@ -7,6 +7,8 @@ const loanRouter = require("./src/routers/loan");
 const apiUserRouter = require("./src/routers/ApiUser");
 const reportRouter = require("./src/routers/report");
 const authMiddleware = require("./src/middleware/auth");
+const userRegister = require("./src/routers/userRegister");
+const apiRegister_Auth = require("./src/routers/apiUserRegister_Auth");
 const cors = require("cors"); // Importa corretamente o cors
 
 const app = new express();
@@ -16,12 +18,13 @@ const PORT = 3000;
 app.use(cors()); // **Chame o cors como uma função**
 
 app.use(express.json());
-app.use(apiUserRouter);
-
+app.use(apiRegister_Auth);
+app.use(userRegister);
 // Antes do middleware de autenticação
 app.use(authMiddleware);
 
 // Rotas
+app.use(apiUserRouter);
 app.use(userRouter);
 app.use(bookRouter);
 app.use(libraryRouter);
