@@ -1,6 +1,31 @@
 const client = require("../config/database");
 
 class Report {
+  static async getBookCatalog() {
+    const query = `
+SELECT 
+    L.id, 
+    titulo, 
+    autor, 
+    categoria, 
+    paginas, 
+    preco, 
+    idioma, 
+    COALESCE(SUM(quantidade_disponivel), 0) AS Quantidade_disponivel
+FROM LIVRO L
+LEFT JOIN livro_biblioteca R ON R.id_livro = L.id
+LEFT JOIN biblioteca B ON R.id_biblioteca = B.id
+GROUP BY L.id, titulo, autor, categoria, paginas, preco, idioma;
+
+    `;
+    try {
+      const result = await client.query(query);
+      return result.rows;
+    } catch (error) {
+      console.error("Error fetching available books:", error);
+      throw error;
+    }
+  }
   static async getAvailableBooks() {
     const query = `
       SELECT

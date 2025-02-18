@@ -1,6 +1,9 @@
 const RepositoryReport = require("../repositories/report");
 const repository = new RepositoryReport();
 class ServiceReport {
+  getBookCatalog() {
+    return repository.getBookCatalog();
+  }
   getAvailableBooks() {
     return repository.getAvailableBooks();
   }

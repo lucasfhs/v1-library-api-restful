@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ReportController = require("../controllers/report");
 const controller = new ReportController();
+router.get("/report/getBookCatalog", controller.getBookCatalog);
 router.get("/report/getAvailableBooks", controller.getAvailableBooks);
 router.get(
   "/report/getBookAvailability/:idBook",

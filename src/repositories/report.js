@@ -1,5 +1,14 @@
 const Report = require("../models/report");
 class RepositoryReport {
+  async getBookCatalog() {
+    try {
+      const ReportData = await Report.getBookCatalog();
+      return ReportData;
+    } catch (error) {
+      console.error("Error get Report:", error);
+      throw error;
+    }
+  }
   async getAvailableBooks() {
     try {
       const ReportData = await Report.getAvailableBooks();
