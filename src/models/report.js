@@ -50,6 +50,7 @@ GROUP BY L.id, titulo, autor, categoria, paginas, preco, idioma;
   static async getBookAvailability(idLivro) {
     const query = `
       SELECT
+        b.id,
         l.Titulo AS Livro,
         b.Nome AS Biblioteca,
         lb.Quantidade_Disponivel AS Quantidade

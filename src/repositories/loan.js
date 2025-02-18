@@ -8,8 +8,6 @@ class RepositoryLoan {
         throw new Error("idBook cannot be null.");
       } else if (!dateLoan) {
         throw new Error("dateLoan cannot be null.");
-      } else if (!dateReturn) {
-        throw new Error("dateReturn cannot be null.");
       } else if (!idLibrary) {
         throw new Error("idLibrary number cannot be null.");
       }
