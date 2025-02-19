@@ -63,6 +63,24 @@ class RepositoryReport {
       throw error;
     }
   }
+  async getHighAvailabilityCatalog() {
+    try {
+      const ReportData = await Report.getHighAvailabilityCatalog();
+      return ReportData;
+    } catch (error) {
+      console.error("Error get Report:", error);
+      throw error;
+    }
+  }
+  async getMatureCustomers() {
+    try {
+      const ReportData = await Report.getMatureCustomers();
+      return ReportData;
+    } catch (error) {
+      console.error("Error get Report:", error);
+      throw error;
+    }
+  }
 }
 
 module.exports = RepositoryReport;

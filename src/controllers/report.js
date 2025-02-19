@@ -36,6 +36,30 @@ class ControllerReport {
       });
     }
   }
+
+  async getHighAvailabilityCatalog(req, res) {
+    try {
+      const books = await service.getHighAvailabilityCatalog();
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error fetching available books.",
+        error: error.message,
+      });
+    }
+  }
+  async getMatureCustomers(req, res) {
+    try {
+      const books = await service.getMatureCustomers();
+      res.status(200).json(books);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error fetching available books.",
+        error: error.message,
+      });
+    }
+  }
+
   async getAvailableBooks(req, res) {
     try {
       const books = await service.getAvailableBooks();
