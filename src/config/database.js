@@ -7,14 +7,11 @@ const client = new Client({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   port: process.env.DB_PORT || 5432,
-  ssl: {
-    rejectUnauthorized: false, // Aceita certificados não verificados (útil em ambientes de desenvolvimento)
-  },
+  ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false, // Se DB_SSL for "true", ativa SSL
 });
 
 async function runConnection() {
   try {
-    // Conectando ao banco de dados
     await client.connect();
     console.log("The database connection was successful.");
   } catch (error) {
