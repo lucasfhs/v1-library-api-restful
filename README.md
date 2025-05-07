@@ -1,88 +1,87 @@
-(Brazilian Portuguese)
+# REST API Documentation  
+**Legacy Library Management System**  
 
-# Documentação da API
+## Introduction  
 
-## Introdução
+![API Cover Image](./preview/domestic-life-illustrated.jpg)  
 
-![Capa da API](./preview/domestic-life-illustrated.jpg)
+This documentation describes a REST API built with Node.js and Express for an academic project in the *Database I* course at CEFET-MG. The system manages library operations, including user accounts, books, libraries, loans, and reporting without using odm.  
 
-Esta é a documentação da API REST desenvolvida com Node.js e Express para o projeto acadêmico da disciplina de Banco de Dados I em (19/02/2025). O projeto tem como objetivo gerenciar um sistema de bibliotecas, permitindo o cadastro e manipulação de usuários, livros, bibliotecas, empréstimos e relatórios.
+---
 
-## Funcionalidades
+## Features  
 
-A API é composta por diversos módulos que desempenham funções específicas dentro do sistema:
+### 1. User Management  
+- Register, update, delete, and authenticate users.  
+- Secure login-based authentication.  
 
-### 1. Gerenciamento de Usuários
+### 2. Book Control  
+- Add new books with metadata (title, author, ISBN).  
+- Search, list, and remove books.  
 
-- Permite cadastrar, atualizar, remover e autenticar usuários no sistema.
-- Autenticação baseada em login para acesso seguro.
+### 3. Library Administration  
+- Register libraries and associate them with books.  
+- Manage library names and locations.  
 
-### 2. Controle de Livros
+### 4. Loan System  
+- Track book loans by users.  
+- Set deadlines and handle returns.  
 
-- Registra novos livros com informações como título, autor e ISBN.
-- Permite buscar, listar e remover livros.
+### 5. Reporting  
+- Generate analytics on users, books, and loans.  
+- Provide administrative insights.  
 
-### 3. Administração de Bibliotecas
+---
 
-- Permite cadastrar bibliotecas e associá-las a livros.
-- Gerencia localizações e nomes das bibliotecas.
+## Project Structure  
+The code follows a layered architecture:  
 
-### 4. Sistema de Empréstimos
+- **Controllers**: Business logic for API endpoints.  
+- **Models**: Data structures and database interactions.  
+- **Repositories**: Data access layer.  
+- **Services**: Application logic (mediates between controllers and repositories).  
+- **Routers**: API route definitions.  
 
-- Gerencia o registro de empréstimos de livros por usuários.
-- Define prazos e controla devoluções.
+---
 
-### 5. Geração de Relatórios
+## Technologies  
+- **Backend**: Node.js, Express  
+- **Database**: PostgreSQL  
+- **Authentication**: JWT  
 
-- Permite gerar relatórios sobre usuários, livros e empréstimos.
-- Fornece informações analíticas para administração da biblioteca.
+---
 
-## Estrutura do Projeto
+## Setup Instructions  
 
-O código é organizado em diferentes camadas:
+1. Clone the repository:  
+   ```sh
+   git clone <repository-url>
+   ```
 
-- **Controllers**: Contém a lógica de negócio dos recursos da API.
-- **Models**: Representa a estrutura dos dados e a interação com o banco.
-- **Repositories**: Responsável pelo acesso aos dados.
-- **Services**: Implementa a lógica de aplicação e intermedia entre controllers e repositories.
-- **Routers**: Define as rotas da API e vincula os controllers correspondentes.
+2. Install dependencies:  
+   ```sh
+   npm install
+   ```
 
-## Tecnologias Utilizadas
+3. Set up PostgreSQL:  
+   - Create a server and restore the database using `postgre-database-dump.sql`.  
 
-- Node.js
-- Express.js
-- Banco de Dados (PostgreSQL)
-- JWT para autenticação
+4. Configure environment variables (e.g., database credentials, JWT secret).  
 
-## Como Executar
+5. Run the application:  
+   ```sh
+   npm run dev
+   ```
 
-1. Clone o repositório:
+---
 
-```sh
-git clone <url-do-repositorio>
-```
+## Notes  
+- This project was developed for academic purposes as a legacy system.  
+- The codebase is maintained in Portuguese for institutional consistency.  
 
-2. Instale as dependências:
+---
 
-```sh
-npm install
-```
+## References  
+Cover Image: [Freepik AI Illustration](https://www.freepik.com/free-ai-image/domestic-life-illustrated_381099438.htm)  
 
-3. Crie um servidor postgresql e utilize o arquivo "postgre-database-dump.sql" para reconstruir
-   o banco de dados necessário para a aplicacão.
-
-4. Configure as variáveis de ambiente.
-
-5. Execute a aplicação:
-
-```sh
-npm run dev
-```
-
-## Considerações Finais
-
-Este projeto foi desenvolvido para gerenciar bibliotecas e seus componentes de forma simples e com uma linguagem acessível (português) no ambiente acadêmico em questão.
-
-# Referências
-
-Imagem Capa -> https://www.freepik.com/free-ai-image/domestic-life-illustrated_381099438.htm
+--- 
