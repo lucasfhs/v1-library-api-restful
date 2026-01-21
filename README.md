@@ -80,6 +80,10 @@ The code follows a layered architecture:
 - The codebase is maintained in Portuguese for institutional consistency.  
 
 ---
+
+## Project Presentation
+- Project Presentation video:
+https://www.youtube.com/watch?v=_SDEl3swxnw
 ---
 
 ## References  
@@ -87,4 +91,5 @@ Cover Image: [Freepik AI Illustration](https://www.freepik.com/free-ai-image/dom
 
 --- 
 ---
+
 
