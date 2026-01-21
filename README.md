@@ -72,7 +72,7 @@ The code follows a layered architecture:
    ```sh
    npm run dev
    ```
-
+---
 ---
 
 ## Notes  
@@ -80,8 +80,11 @@ The code follows a layered architecture:
 - The codebase is maintained in Portuguese for institutional consistency.  
 
 ---
+---
 
 ## References  
 Cover Image: [Freepik AI Illustration](https://www.freepik.com/free-ai-image/domestic-life-illustrated_381099438.htm)  
 
 --- 
+---
+
